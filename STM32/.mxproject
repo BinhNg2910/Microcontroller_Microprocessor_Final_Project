@@ -9,17 +9,17 @@ CDefines=USE_HAL_DRIVER;STM32F103xB;USE_HAL_DRIVER;USE_HAL_DRIVER;
 [PreviousGenFiles]
 AdvancedFolderStructure=true
 HeaderFileListSize=3
-HeaderFiles#0=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Inc/stm32f1xx_it.h
-HeaderFiles#1=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Inc/stm32f1xx_hal_conf.h
-HeaderFiles#2=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Inc/main.h
+HeaderFiles#0=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Inc/stm32f1xx_it.h
+HeaderFiles#1=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Inc/stm32f1xx_hal_conf.h
+HeaderFiles#2=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Inc/main.h
 HeaderFolderListSize=1
-HeaderPath#0=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Inc
+HeaderPath#0=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Inc
 HeaderFiles=;
 SourceFileListSize=3
-SourceFiles#0=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Src/stm32f1xx_it.c
-SourceFiles#1=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Src/stm32f1xx_hal_msp.c
-SourceFiles#2=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Src/main.c
+SourceFiles#0=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Src/stm32f1xx_it.c
+SourceFiles#1=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Src/stm32f1xx_hal_msp.c
+SourceFiles#2=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Src/main.c
 SourceFolderListSize=1
-SourcePath#0=C:/Users/vanbi/OneDrive - hcmut.edu.vn/Subjects/VXL/Lab/Project/STM32/Core/Src
+SourcePath#0=C:/Computer engineering study/3th year/Semester 1/Microprocessors-Microcontrollers/STM_workspace/lab3/lab3_xuong_mach/Core/Src
 SourceFiles=;
 

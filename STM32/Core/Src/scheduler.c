@@ -1,8 +1,8 @@
 /*
  * scheduler.c
  *
- *  Created on: Nov 8, 2023
- *      Author: Admin
+ *  Created on: Dec 2, 2023
+ *      Author: Ben Tran
  */
 
 #include "main.h"

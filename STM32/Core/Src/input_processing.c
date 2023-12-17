@@ -4,12 +4,12 @@
  *  Created on: Dec 1, 2023
  *      Author: vanbi
  */
-
-
 #include <software_timer.h>
 #include "main.h"
-#include "reading.h"
-#include "processing.h"
+#include "input_reading.h"
+#include "input_processing.h"
+#include "normal_mode.h"
+#include "mode_processing.h"
 
 enum ButtonState_0 { BUTTON_RELEASED_0, BUTTON_PRESSED_0, BUTTON_PRESSED_MORE_THAN_1_SECOND_0 };
 enum ButtonState_0 buttonState_0 = BUTTON_RELEASED_0;

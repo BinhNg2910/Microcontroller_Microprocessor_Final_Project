@@ -32,7 +32,10 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 
+extern UART_HandleTypeDef huart2;
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -50,6 +53,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -58,43 +63,28 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
-#define B1_EXTI_IRQn EXTI15_10_IRQn
-#define btn0_Pin GPIO_PIN_1
-#define btn0_GPIO_Port GPIOA
-#define USART_TX_Pin GPIO_PIN_2
-#define USART_TX_GPIO_Port GPIOA
-#define USART_RX_Pin GPIO_PIN_3
-#define USART_RX_GPIO_Port GPIOA
-#define btn1_Pin GPIO_PIN_4
-#define btn1_GPIO_Port GPIOA
-#define LD2_Pin GPIO_PIN_5
-#define LD2_GPIO_Port GPIOA
-#define btn2_Pin GPIO_PIN_6
-#define btn2_GPIO_Port GPIOA
-#define btn3_Pin GPIO_PIN_7
-#define btn3_GPIO_Port GPIOA
-#define RoadLight1_Pin GPIO_PIN_8
-#define RoadLight1_GPIO_Port GPIOA
-#define RoadLight2_Pin GPIO_PIN_9
-#define RoadLight2_GPIO_Port GPIOA
-#define RoadLight3_Pin GPIO_PIN_10
-#define RoadLight3_GPIO_Port GPIOA
-#define RoadLight4_Pin GPIO_PIN_11
-#define RoadLight4_GPIO_Port GPIOA
-#define buzzer_Pin GPIO_PIN_12
-#define buzzer_GPIO_Port GPIOA
-#define TMS_Pin GPIO_PIN_13
-#define TMS_GPIO_Port GPIOA
-#define TCK_Pin GPIO_PIN_14
-#define TCK_GPIO_Port GPIOA
-#define SWO_Pin GPIO_PIN_3
-#define SWO_GPIO_Port GPIOB
-#define PesLight1_Pin GPIO_PIN_5
-#define PesLight1_GPIO_Port GPIOB
-#define PesLight2_Pin GPIO_PIN_6
-#define PesLight2_GPIO_Port GPIOB
+#define BUTTON_3_Pin GPIO_PIN_0
+#define BUTTON_3_GPIO_Port GPIOA
+#define BUTTON_0_Pin GPIO_PIN_1
+#define BUTTON_0_GPIO_Port GPIOA
+#define BUTTON_1_Pin GPIO_PIN_4
+#define BUTTON_1_GPIO_Port GPIOA
+#define HORN_Pin GPIO_PIN_6
+#define HORN_GPIO_Port GPIOA
+#define BUTTON_2_Pin GPIO_PIN_0
+#define BUTTON_2_GPIO_Port GPIOB
+#define PDL_0_Pin GPIO_PIN_10
+#define PDL_0_GPIO_Port GPIOB
+#define PDL_1_Pin GPIO_PIN_8
+#define PDL_1_GPIO_Port GPIOA
+#define TFL_00_Pin GPIO_PIN_10
+#define TFL_00_GPIO_Port GPIOA
+#define TFL_01_Pin GPIO_PIN_3
+#define TFL_01_GPIO_Port GPIOB
+#define TFL_11_Pin GPIO_PIN_4
+#define TFL_11_GPIO_Port GPIOB
+#define TFL_10_Pin GPIO_PIN_5
+#define TFL_10_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -1,0 +1,15 @@
+mode_processing.c:15:6:checkFlagPedes	4	static
+mode_processing.c:30:6:initBuzzerPedes	4	static
+mode_processing.c:34:6:buzzerPedes	4	static
+mode_processing.c:46:6:clearTerminal	16	static
+mode_processing.c:50:6:printString	16	static
+mode_processing.c:53:6:printValue	120	static
+mode_processing.c:57:6:displayTLValues	8	static
+mode_processing.c:89:6:modify_red	8	static
+mode_processing.c:107:6:modify_yellow	8	static
+mode_processing.c:125:6:modify_green	8	static
+mode_processing.c:143:6:initLightPedes	8	static
+mode_processing.c:148:6:setRedPedes	8	static
+mode_processing.c:153:6:setGreenPedes	8	static
+mode_processing.c:159:6:pes_processing	8	static
+mode_processing.c:209:6:mode_processing	16	static

@@ -22,12 +22,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "traffic_processing.h"
-#include "trafficlight_mode.h"
+#include "mode_processing.h"
 #include "scheduler.h"
 #include "software_timer.h"
-#include "reading.h"
-#include "processing.h"
+#include "input_reading.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,8 +55,8 @@ UART_HandleTypeDef huart2;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_USART2_UART_Init(void);
 static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -97,22 +95,20 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART2_UART_Init();
   MX_TIM2_Init();
+  MX_USART2_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   SCH_Init();
 
   /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   SCH_Add_Task(mode_processing, 0, 1);
   SCH_Add_Task(button_reading, 0, 1);
   SCH_Add_Task(timerRun, 0, 1);
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
@@ -218,6 +214,7 @@ static void MX_TIM3_Init(void)
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM3_Init 1 */
 
@@ -237,15 +234,28 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN TIM3_Init 2 */
 
   /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
 
 }
 
@@ -265,7 +275,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -292,55 +302,40 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LD2_Pin|RoadLight1_Pin|RoadLight2_Pin|RoadLight3_Pin
-                          |RoadLight4_Pin|buzzer_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PDL_0_Pin|TFL_01_Pin|TFL_11_Pin|TFL_10_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(PesLight1_GPIO_Port, PesLight1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PDL_1_Pin|TFL_00_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : btn0_Pin btn1_Pin btn2_Pin btn3_Pin */
-  GPIO_InitStruct.Pin = btn0_Pin|btn1_Pin|btn2_Pin|btn3_Pin;
+  /*Configure GPIO pins : BUTTON_3_Pin BUTTON_0_Pin BUTTON_1_Pin */
+  GPIO_InitStruct.Pin = BUTTON_3_Pin|BUTTON_0_Pin|BUTTON_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin RoadLight1_Pin RoadLight2_Pin RoadLight3_Pin
-                           RoadLight4_Pin buzzer_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|RoadLight1_Pin|RoadLight2_Pin|RoadLight3_Pin
-                          |RoadLight4_Pin|buzzer_Pin;
+  /*Configure GPIO pin : BUTTON_2_Pin */
+  GPIO_InitStruct.Pin = BUTTON_2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(BUTTON_2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PDL_0_Pin TFL_01_Pin TFL_11_Pin TFL_10_Pin */
+  GPIO_InitStruct.Pin = PDL_0_Pin|TFL_01_Pin|TFL_11_Pin|TFL_10_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PDL_1_Pin TFL_00_Pin */
+  GPIO_InitStruct.Pin = PDL_1_Pin|TFL_00_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PesLight1_Pin */
-  GPIO_InitStruct.Pin = PesLight1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(PesLight1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PesLight2_Pin */
-  GPIO_InitStruct.Pin = PesLight2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(PesLight2_GPIO_Port, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 

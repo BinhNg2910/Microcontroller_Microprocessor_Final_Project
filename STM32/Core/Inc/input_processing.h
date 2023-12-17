@@ -5,13 +5,13 @@
  *      Author: vanbi
  */
 
-#ifndef INC_PROCESSING_H_
-#define INC_PROCESSING_H_
+#ifndef INC_INPUT_PROCESSING_H_
+#define INC_INPUT_PROCESSING_H_
 
-#include "reading.h"
+#include "input_reading.h"
 
 extern int is_press_flag[N0_OF_BUTTONS];
 
 void fsm_for_input_processing(void);
 
-#endif /* INC_PROCESSING_H_ */
+#endif /* INC_INPUT_PROCESSING_H_ */
